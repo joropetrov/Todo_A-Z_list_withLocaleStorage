@@ -74,17 +74,13 @@ function solve() {
                 }
                 span.innerText = localStorageVal;
               }
-            
 
             liElement.append(span);
-            
             p.id = `${checkLetter}`;
             p.classList="thin-red-border";
             p.innerText = "Clear Text";
             olElement.appendChild(liElement);
             olElement.appendChild(p);
-
-           
         }
     }
     
@@ -97,7 +93,7 @@ function solve() {
                 currentLiEl.querySelector('span').innerText = '';
                 currentLiEl.querySelector('span').style="text-decoration: none";
                 currentLiEl.querySelector('input').checked = false;
-                
+                localStorage.removeItem(Object.keys(lettersObject)[a]);
             });
         }
     }
