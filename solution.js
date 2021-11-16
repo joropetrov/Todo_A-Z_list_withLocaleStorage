@@ -53,26 +53,28 @@ function solve() {
 
         for (let index = 0; index < lettersObjLenght; index++) {
 
-            let localStorageKey = Object.keys(lettersObject)[index];
+            let localStorageInfo  = window.localStorage; 
+
             let checkLetter = Object.keys(lettersObject)[index];
             let liElement = document.createElement('li');
             let input = document.createElement('input');
             let p = document.createElement('p');
+            p.hidden = true;
             let span = document.createElement('span');
             input.id = `${checkLetter}`;
             input.type="checkbox";
             liElement.id=`${checkLetter}`;
             liElement.append(input);
 
-            let localStorageVal = localStorage.getItem(localStorageKey);
-            if (localStorageVal !== null) {
+            if (localStorageInfo[`${checkLetter}`] !== undefined) {
                
-                if (localStorageVal.includes("+check+")) {
-                    localStorageVal = localStorageVal.replace("+check+", "");
+                if (localStorageInfo[`${checkLetter}`].includes("+check+")) {
+                    localStorageInfo[`${checkLetter}`] = localStorageInfo[`${checkLetter}`].replace("+check+", "");
                        span.style="text-decoration:line-through";
                        input.checked = "true";
                 }
-                span.innerText = localStorageVal;
+                span.innerText = localStorageInfo[`${checkLetter}`];
+                p.hidden = false;
               }
 
             liElement.append(span);
@@ -86,15 +88,17 @@ function solve() {
     
     function clearText() {
         for (let a = 0; a < lettersObjLenght; a++) {
-            let currentParagrapfEl = document.querySelector(`p[id="${Object.keys(lettersObject)[a]}"]`);
+
             let currentLiEl = document.querySelector(`li[id="${Object.keys(lettersObject)[a]}"]`);
 
-            currentParagrapfEl.addEventListener('click', () => {
+            document.querySelector(`p[id="${Object.keys(lettersObject)[a]}"]`).addEventListener('click', () => {
                 currentLiEl.querySelector('span').innerText = '';
                 currentLiEl.querySelector('span').style="text-decoration: none";
                 currentLiEl.querySelector('input').checked = false;
                 localStorage.removeItem(Object.keys(lettersObject)[a]);
+                document.querySelector(`p[id="${currentLiEl.id}"]`).hidden = true;
             });
+
         }
     }
 
@@ -104,24 +108,17 @@ function solve() {
         
         if (insertData !== undefined) {
 
-            let  correctIndexOfLiElement = lettersObject[`${insertData[0]}`] - 1;
-
-            if (isNaN(correctIndexOfLiElement)) {
-                return;
-            }
-    
             let correctLiEl = document.getElementById(`${insertData[0]}`);
-    
+
             if (correctLiEl.querySelector('span').innerText !== '') {
                 correctLiEl.querySelector('span').innerText += `, ${insertData}`;
             } else{
                 correctLiEl.querySelector('span').innerText += insertData;
             }
+            document.querySelector(`p[id="${insertData[0]}"]`).hidden = false;
             localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText);
         }
             
         document.getElementsByTagName('input')[0].value ='';
-
-        return;
     }
 }

@@ -17,16 +17,9 @@ input[type="checkbox"] {
   .thin-red-border:hover {
     box-shadow: 0 0 11px rgba(190, 4, 4, 0.2); 
   }
-p {
-    margin-left: 40%;
-    width: 20%;
-    color: goldenrod;
-    border-width: 16px;
-    font-size: small;
-    cursor: pointer;
-}
+
 #main {
-    width: 70%;
+    width: 45%;
     margin: 35px auto;
     text-align: center;
 }
@@ -78,4 +71,16 @@ input, button {
     border: 2px solid #b6c6d7;
     padding: 17px;
     outline: none;
+}
+p{
+    margin-left: 41%;
+    border-width: 16px;
+    font-size:smaller;
+    cursor: pointer;
+    text-align: center;
+    text-decoration-color: black;
+    width: 11%;  
+    background-color: #b6d7c0;
+    color: black;
+    text-decoration: black;
 }
