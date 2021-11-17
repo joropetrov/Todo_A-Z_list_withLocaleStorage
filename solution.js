@@ -8,13 +8,12 @@ function solve() {
 
     let lettersObjLenght = Object.keys(lettersObject).length;
     let olElement = document.querySelector('ol');
-    let button = document.querySelector('button');
     
     createLettersList();
     clearText();
     checkedCheckBoxes();
 
-    button.addEventListener('click', insertNameInTable);
+    document.querySelector('button').addEventListener('click', insertNameInTable);
    
     function checkedCheckBoxes() {
         
@@ -30,17 +29,17 @@ function solve() {
 
                 if (checkBoxEl.checked) {
                     if (currentLi.innerText !== "") {
-                        let localStorageValue = localStorage.getItem(checkBoxEl.id) + '+check+';
-                        localStorage.setItem(checkBoxEl.id, localStorageValue);
+                        let localStorageValue = window.localStorage.getItem(checkBoxEl.id) + '+check+';
+                        window.localStorage.setItem(checkBoxEl.id, localStorageValue);
+                        console.log(window.localStorage.getItem(checkBoxEl.id))
                     }
                     spanEl.style="text-decoration:line-through";
-                    return;
 
                 } else{
                     if (currentLi.innerText !== ""){
-                        localStorageValue = localStorage.getItem(checkBoxEl.id);
+                        localStorageValue = window.localStorage.getItem(checkBoxEl.id);
                         localStorageValue = localStorageValue.replace('+check+', '');
-                        localStorage.setItem(checkBoxEl.id, localStorageValue);
+                        window.localStorage.setItem(checkBoxEl.id, localStorageValue);
                     }
                          spanEl.style="text-decoration: none";
                     
@@ -65,15 +64,17 @@ function solve() {
             input.type="checkbox";
             liElement.id=`${checkLetter}`;
             liElement.append(input);
-
+                console.log(localStorageInfo[`${checkLetter}`]);
             if (localStorageInfo[`${checkLetter}`] !== undefined) {
                
                 if (localStorageInfo[`${checkLetter}`].includes("+check+")) {
-                    localStorageInfo[`${checkLetter}`] = localStorageInfo[`${checkLetter}`].replace("+check+", "");
+                   
                        span.style="text-decoration:line-through";
                        input.checked = "true";
+                       span.innerText = localStorageInfo[`${checkLetter}`].replace("+check+", "");
+                } else{
+                    span.innerText = localStorageInfo[`${checkLetter}`];
                 }
-                span.innerText = localStorageInfo[`${checkLetter}`];
                 p.hidden = false;
               }
 
@@ -95,7 +96,7 @@ function solve() {
                 currentLiEl.querySelector('span').innerText = '';
                 currentLiEl.querySelector('span').style="text-decoration: none";
                 currentLiEl.querySelector('input').checked = false;
-                localStorage.removeItem(Object.keys(lettersObject)[a]);
+                window.localStorage.removeItem(Object.keys(lettersObject)[a]);
                 document.querySelector(`p[id="${currentLiEl.id}"]`).hidden = true;
             });
 
@@ -116,7 +117,10 @@ function solve() {
                 correctLiEl.querySelector('span').innerText += insertData;
             }
             document.querySelector(`p[id="${insertData[0]}"]`).hidden = false;
-            localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText);
+            
+            document.querySelector(`input[id="${insertData[0]}"]`).checked ? 
+            window.localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText + '+check+'):
+            window.localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText);
         }
             
         document.getElementsByTagName('input')[0].value ='';
