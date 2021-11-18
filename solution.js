@@ -7,7 +7,6 @@ function solve() {
     };
 
     let lettersObjLenght = Object.keys(lettersObject).length;
-    let olElement = document.querySelector('ol');
     
     createLettersList();
     clearText();
@@ -22,33 +21,37 @@ function solve() {
         for (let b = 0; b < lettersObjLenght; b++) {
             let checkBoxEl = checkBoxes[b];
 
-            checkBoxEl.addEventListener('change', () =>{
+            checkBoxEl.addEventListener('change', checkBoxWork);
+        }
+    }
 
-                let currentLi = checkBoxEl.parentElement;
-                let spanEl = currentLi.querySelector('span');
+    function checkBoxWork(){
 
-                if (checkBoxEl.checked) {
-                    if (currentLi.innerText !== "") {
-                        let localStorageValue = window.localStorage.getItem(checkBoxEl.id) + '+check+';
-                        window.localStorage.setItem(checkBoxEl.id, localStorageValue);
-                        console.log(window.localStorage.getItem(checkBoxEl.id))
-                    }
-                    spanEl.style="text-decoration:line-through";
+        let currentLi = window.event.currentTarget.parentElement;
+        let checkbox = window.event.currentTarget;
+        let spanEl = currentLi.querySelector('span');
 
-                } else{
-                    if (currentLi.innerText !== ""){
-                        localStorageValue = window.localStorage.getItem(checkBoxEl.id);
-                        localStorageValue = localStorageValue.replace('+check+', '');
-                        window.localStorage.setItem(checkBoxEl.id, localStorageValue);
-                    }
-                         spanEl.style="text-decoration: none";
-                    
-                }
-            });
+        if (checkbox.checked) {
+            let localStorageValue = window.localStorage.getItem(checkbox.id);
+            if (currentLi.innerText !== "" && !localStorageValue.includes('+check+')) {
+                localStorageValue += '+check+';
+                window.localStorage.setItem(checkbox.id, localStorageValue);
+            }
+            spanEl.style="text-decoration:line-through";
+
+        } else{
+            if (currentLi.innerText !== ""){
+                localStorageValue = window.localStorage.getItem(checkbox.id);
+                localStorageValue = localStorageValue.replace('+check+', '');
+                window.localStorage.setItem(checkbox.id, localStorageValue);
+            }
+                 spanEl.style="text-decoration: none";
         }
     }
 
     function createLettersList(){
+
+        let olElement = document.querySelector('ol');
 
         for (let index = 0; index < lettersObjLenght; index++) {
 
@@ -64,7 +67,7 @@ function solve() {
             input.type="checkbox";
             liElement.id=`${checkLetter}`;
             liElement.append(input);
-                console.log(localStorageInfo[`${checkLetter}`]);
+
             if (localStorageInfo[`${checkLetter}`] !== undefined) {
                
                 if (localStorageInfo[`${checkLetter}`].includes("+check+")) {
@@ -107,7 +110,7 @@ function solve() {
        
         let insertData = document.getElementsByTagName('input')[0].value;
         
-        if (insertData !== undefined) {
+        if (insertData !== undefined && insertData !== "") {
 
             let correctLiEl = document.getElementById(`${insertData[0]}`);
 
