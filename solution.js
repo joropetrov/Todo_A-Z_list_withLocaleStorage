@@ -49,44 +49,44 @@ function solve() {
         }
     }
 
-    function createLettersList(){
+    function createLettersList() {
 
         let olElement = document.querySelector('ol');
 
         for (let index = 0; index < lettersObjLenght; index++) {
 
-            let localStorageInfo  = window.localStorage; 
-
+            const localStorageInfo = window.localStorage;
             let checkLetter = Object.keys(lettersObject)[index];
-            let liElement = document.createElement('li');
-            let input = document.createElement('input');
-            let p = document.createElement('p');
-            p.hidden = true;
-            let span = document.createElement('span');
-            input.id = `${checkLetter}`;
-            input.type="checkbox";
-            liElement.id=`${checkLetter}`;
-            liElement.append(input);
+
+            let checkedInput = "";
+            let spanStyle = "text-decoration: none";
+            let spanInnerText = "";
+            let hidden = "hidden";
 
             if (localStorageInfo[`${checkLetter}`] !== undefined) {
-               
-                if (localStorageInfo[`${checkLetter}`].includes("+check+")) {
-                   
-                       span.style="text-decoration:line-through";
-                       input.checked = "true";
-                       span.innerText = localStorageInfo[`${checkLetter}`].replace("+check+", "");
-                } else{
-                    span.innerText = localStorageInfo[`${checkLetter}`];
-                }
-                p.hidden = false;
-              }
 
-            liElement.append(span);
-            p.id = `${checkLetter}`;
-            p.classList="thin-red-border";
-            p.innerText = "Clear Text";
-            olElement.appendChild(liElement);
-            olElement.appendChild(p);
+                if (localStorageInfo[`${checkLetter}`].includes("+check+")) {
+
+                    spanStyle = "text-decoration:line-through";
+                    checkedInput = 'checked';
+                    spanInnerText = localStorageInfo[`${checkLetter}`].replace("+check+", "");
+                } else {
+
+                    spanInnerText = localStorageInfo[`${checkLetter}`];
+                }
+                hidden = "";
+            }
+
+            const listHtml = document.createElement('div');
+            listHtml.innerHTML = `
+              <li id="${checkLetter}">
+                <input id="${checkLetter}" type="checkbox" ${checkedInput}></p>
+                <span style="${spanStyle}">${spanInnerText}</span>
+              </li>
+              <p ${hidden} id="${checkLetter}" class="thin-red-border">Clear Text</p>
+              `;
+
+            olElement.append(listHtml);
         }
     }
     
