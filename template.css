@@ -5,6 +5,10 @@ html {
     font-family: "Lato", sans-serif;
     color: #234465;
 }
+span {
+    font-size: larger;
+}
+     
 input[type="checkbox"] {
     margin: 1%;
 }
@@ -17,7 +21,6 @@ input[type="checkbox"] {
   .thin-red-border:hover {
     box-shadow: 0 0 11px rgba(190, 4, 4, 0.2); 
   }
-
 #main {
     width: 45%;
     margin: 35px auto;
@@ -32,16 +35,19 @@ input[type="button"], button {
     margin: 1rem 0 1rem 0;
     border: none;
     color: white;
-    background: #234465;
+    background: #56bbee;
     border-radius: 5px;
     outline: none;
 }
-
-ol li {
+ol{
+    text-align: left;
+    width: 100%;
+}
+  li {
     border-bottom: 1px solid #b6c6d7;
     color: #234465;
     font-size: 24px;
-    width: 90%;
+    width: 80%;
     margin-left: 10px;
     padding-left: 15px;
     text-align: left;
@@ -52,10 +58,12 @@ h1 {
     text-align: center;
 }
 
-#exercise div {
+#exercise {
+    width: 100%;
     border: 2px solid #b6c6d7;
     margin-top: 2%;
     margin-left: 2%;
+    background-color: gainsboro;
 }
 input, button {
     font-size: 20px;
@@ -64,7 +72,8 @@ input, button {
     padding: 19px 27px;
     font-weight: bold;
     text-transform: uppercase;
-    color: aqua;
+    color: rgb(44, 13, 13);
+    
 }
 #exercise article input {
     width: 82%;
@@ -73,14 +82,15 @@ input, button {
     outline: none;
 }
 p{
-    margin-left: 41%;
+    margin-left: 40%;
     border-width: 16px;
-    font-size:smaller;
+    font-size:large;
     cursor: pointer;
     text-align: center;
     text-decoration-color: black;
-    width: 11%;  
+    width: 10%;  
     background-color: #b6d7c0;
     color: black;
     text-decoration: black;
+    font-family: 'Just Another Hand', cursive;
 }
