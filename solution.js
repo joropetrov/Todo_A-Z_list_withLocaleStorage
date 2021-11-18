@@ -9,12 +9,12 @@ function solve() {
     let lettersObjLenght = Object.keys(lettersObject).length;
     
     createLettersList();
-    clearText();
-    checkedCheckBoxes();
+    clearTextButtonListener();
+    checkBoxListener();
 
     document.querySelector('button').addEventListener('click', insertNameInTable);
    
-    function checkedCheckBoxes() {
+    function checkBoxListener() {
         
         let checkBoxes = document.querySelectorAll('li input');
 
@@ -57,7 +57,6 @@ function solve() {
 
             const localStorageInfo = window.localStorage;
             let checkLetter = Object.keys(lettersObject)[index];
-
             let checkedInput = "";
             let spanStyle = "text-decoration: none";
             let spanInnerText = "";
@@ -79,18 +78,17 @@ function solve() {
 
             const listHtml = document.createElement('div');
             listHtml.innerHTML = `
-              <li id="${checkLetter}">
+            <li id="${checkLetter}">
                 <input id="${checkLetter}" type="checkbox" ${checkedInput}></p>
                 <span style="${spanStyle}">${spanInnerText}</span>
               </li>
-              <p ${hidden} id="${checkLetter}" class="thin-red-border">Clear Text</p>
-              `;
+              <p ${hidden} id="${checkLetter}" class="thin-red-border">Clear Text</p>`;
 
             olElement.append(listHtml);
         }
     }
     
-    function clearText() {
+    function clearTextButtonListener() {
         for (let a = 0; a < lettersObjLenght; a++) {
 
             let currentLiEl = document.querySelector(`li[id="${Object.keys(lettersObject)[a]}"]`);
