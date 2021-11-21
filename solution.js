@@ -107,21 +107,21 @@ function solve() {
     function insertNameInTable(){
        
         let insertData = document.getElementsByTagName('input')[0].value;
-        
+
         if (insertData !== undefined && insertData !== "") {
 
-            let correctLiEl = document.getElementById(`${insertData[0]}`);
+            let correctLiEl = document.getElementById(`${insertData.toLowerCase()[0]}`);
 
             if (correctLiEl.querySelector('span').innerText !== '') {
                 correctLiEl.querySelector('span').innerText += `, ${insertData}`;
             } else{
                 correctLiEl.querySelector('span').innerText += insertData;
             }
-            document.querySelector(`p[id="${insertData[0]}"]`).hidden = false;
+            document.querySelector(`p[id="${insertData.toLowerCase()[0]}"]`).hidden = false;
             
-            document.querySelector(`input[id="${insertData[0]}"]`).checked ? 
-            window.localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText + '+check+'):
-            window.localStorage.setItem(insertData[0], correctLiEl.querySelector('span').innerText);
+            document.querySelector(`input[id="${insertData.toLowerCase()[0]}"]`).checked ? 
+            window.localStorage.setItem(insertData.toLowerCase()[0], correctLiEl.querySelector('span').innerText + '+check+'):
+            window.localStorage.setItem(insertData.toLowerCase()[0], correctLiEl.querySelector('span').innerText);
         }
             
         document.getElementsByTagName('input')[0].value ='';
